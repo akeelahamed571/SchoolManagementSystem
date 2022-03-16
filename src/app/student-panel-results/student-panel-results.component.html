@@ -1,0 +1,130 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+<script src= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+    
+
+
+
+
+
+<!--<a (click)="goToAdminPanelResultList()">admin panel <span class="sr-only">(current)</span>  </a><br><br>-->
+
+   <!--<form class="form-inline my-2 my-lg-0">
+        <input type="search" (ngModelChange)="searchStudentPanelResults('std45')" #key="ngModel" ngModel
+        name="key"  id="searchName"  class="form-control mr-sm-2" placeholder="Type any key here to view" required>
+     </form> --> 
+
+
+     <!--start of that admin panel   -->
+<div >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            
+        <a class="navbar-brand" style="color:lightseagreen;">View Results</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    
+    <div class="collapse navbar-collapse" id="navbarColor02">  
+    
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+           <a class="nav-link" (click)="onOpenModals(null, 'add')">My Subjects <span class="sr-only">(current)</span></a>
+        </li>
+       
+         <li class="nav-item active">
+            <a class="nav-link" >Results <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+            <a class="nav-link" >My Classes <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+            <a class="nav-link" >My Subjects <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+            <a class="nav-link" >My Notices <span class="sr-only">(current)</span></a>
+         </li>
+         <li class="nav-item active">
+            <a class="nav-link" >My Profile <span class="sr-only">(current)</span></a>
+         </li>
+        
+    
+     </ul>
+    
+    <!-- <form class="form-inline my-2 my-lg-0">
+        <input type="search" (ngModelChange)="searchResults(key.value)" #key="ngModel" ngModel
+         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search Results..." required>
+     </form>-->
+    
+     <!--searching result option-->
+     <form class="form-inline my-2 my-lg-0">
+         <input type="search" (ngModelChange)="searchStudentPanelResults(key.value)" #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search your Id.." required>
+     </form>
+     
+    
+    
+    
+    </div>
+    </nav>
+    
+
+     <a  class="nav-link"  (click)="searchStudentPanelResults(resultcheckid)">CLICK HERE TO VIEW YOUR RESULTS <span class="sr-only">(current)</span></a>
+     
+
+     <div class="container" id="main-container">
+        <!--class vice-->
+        
+        
+       <a class="navbar-brand" style="color:black;font-size: 30pt;">Results</a>
+       <table class="table">
+           <thead class="thead-dark">
+             <tr>
+               <th scope="col">#</th>
+               <th scope="col">student</th>
+               <th scope="col">class</th>
+               <th scope="col">medium</th>
+               <th scope="col">subject</th>
+               <th scope="col">term</th>
+               <th scope="col">mark</th>
+               <th scope="col">marked by</th>
+               
+             </tr>
+           </thead>
+           <!--*ngIf="searchStudentPanelResults == true"-->
+           <tbody >
+            
+             <tr   *ngFor="let results of resultsStudent">
+               <th scope="row">{{results?.resultid}}</th>
+               <td>{{results?.studentId}}</td>
+               <td>{{results?.classId}}</td>
+               <td>{{results?.medium}}</td>
+               <td>{{results?.subject}}</td>
+               <td>{{results?.term}}</td>
+               <td>{{results?.marks}}</td>
+               <td>{{results?.staffId}}</td>
+               
+             </tr>
+             
+           </tbody>
+         </table>
+       
+       </div>
+     
+  <!-- Notification for no Results -->
+<div *ngIf="results?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">NO Results!</h4>
+      <p>No Results were found.</p>
+    </div>
+    </div>
+
+
+         
+
+     <!--footer  
+    <footer class = "footer">
+        <div class = "container">
+            <span>All Rights Reserved 2021 </span>
+        </div>
+    </footer>--> 

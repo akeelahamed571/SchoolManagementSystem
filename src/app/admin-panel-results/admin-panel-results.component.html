@@ -1,0 +1,348 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+<script src= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+
+
+
+
+<!--start of that admin panel    style="background-color: red;color: black;" -->
+<div >
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+        
+    <a class="navbar-brand" style="color:lightseagreen;">Results Management</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+<div class="collapse navbar-collapse" id="navbarColor02">  
+
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+       <a class="nav-link" (click)="onOpenModals(null, 'add')">Add Result <span class="sr-only">(current)</span></a>
+    </li>
+  
+     <li class="nav-item active">
+        <a class="nav-link" >Results <span class="sr-only">(current)</span></a>
+     </li>
+     <li class="nav-item active">
+        <a class="nav-link" >Class Management <span class="sr-only">(current)</span></a>
+     </li>
+    
+    
+
+ </ul>
+
+ <form class="form-inline my-2 my-lg-0">
+    <input type="search" (ngModelChange)="searchResults(key.value)" #key="ngModel" ngModel
+     name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search students..." required>
+ </form>
+
+
+ 
+
+
+
+</div>
+</nav>
+
+<br><br>
+
+
+<div class="container" id="main-container">
+ <!--class vice
+  <a (click)="getClassViceResults('8c')">8c <span class="sr-only">(current)</span></a>
+ <a (click)="getClassViceResults('7')">7 <span class="sr-only">(current)</span></a>
+ <a (click)="getClassViceResults('6A')">6A <span class="sr-only">(current)</span></a>-->
+
+
+<a class="navbar-brand" style="color:black;font-size: 30pt;">Results</a>
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">student</th>
+        <th scope="col">class</th>
+        <th scope="col">medium</th>
+        <th scope="col">subject</th>
+        <th scope="col">term</th>
+        <th scope="col">mark</th>
+        <th scope="col">marked by</th>
+        <th scope="col">action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of results">
+        <th scope="row">{{result?.resultid}}</th>
+        <td>{{result?.studentId}}</td>
+        <td>{{result?.classId}}</td>
+        <td>{{result?.medium}}</td>
+        <td>{{result?.subject}}</td>
+        <td>{{result?.term}}</td>
+        <td>{{result?.marks}}</td>
+        <td>{{result?.staffId}}</td>
+        <td class="card-body">
+            <div class="float-right btn-group btn-group-sm">
+                <!--*ngIf="statusClass.length != 0"-->
+                <a  (click)="onOpenModals(result, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a  (click)="onOpenModals(result, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+        </div>
+       </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+</div>
+<!--end of navigation bar + showing result table format-->
+
+<!--end of 1st-->
+
+
+
+<!--start prac-->
+
+
+
+
+<!--end prac-->
+<!--avashaya nam above buttons check click case-->
+
+<!-- Add Result Modal *ngIf="statusClass.length != 0" -->
+<div   class="modal fade" id="addResultModal" tabindex="-1" role="dialog" aria-labelledby="addResultModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addResultModalLabel">Add Result</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            
+            <form #addForm="ngForm" (ngSubmit)="onAddResult(addForm)">
+            
+            
+
+
+            <div class="form-group">
+                <label for="studentId">student Id</label>
+                <select    ngModel name="studentId" class="form-control" id="studentId" required>
+                        <option *ngFor="let grade of students"  name="studentId" value={{grade?.studentid}} text={{grade?.studentid}}  ></option>
+                        
+                </select>
+            </div>
+            
+            
+            
+           
+            <div class="form-group">
+                <label for="classId">class</label>
+                <select    ngModel name="classId" class="form-control" id="classId" required>
+                        <option *ngFor="let grade of grade"  name="classId" value={{grade?.classid}} text={{grade?.classid}}  ></option>
+                        
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="medium">medium</label>
+                <select ngModel name="medium" class="form-control" id="medium" required>
+                        <option value="sinhala">sinhala</option>
+                        <option value="tamil">tamil</option>
+                        <option value="english">english</option>
+                </select>
+            </div>
+
+
+            
+
+            
+            <div class="form-group">
+                <label for="subject">subject</label>
+                <select    ngModel name="subject" class="form-control" id="subject"  required>
+                        <option *ngFor="let stafftimetables of stafftimetablesNew"  name="subject" value={{stafftimetables?.subject}} text={{stafftimetables?.subject}}  ></option>
+                        
+                </select>
+            </div>
+            
+
+            
+            <div class="form-group">
+                <label for="term">term</label>
+                <select ngModel name="term" class="form-control" id="term" required>
+                        <option value="1st">1st</option>
+                        <option value="2nd">2nd</option>
+                        <option value="3rd">3rd</option>
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="marks">marks</label>
+                <input type="text" ngModel name="marks" class="form-control" id="marks" placeholder="98.0" required>
+             </div>
+
+             <div class="form-group">
+                <label for="staffId">Marked By</label>
+                <select    ngModel name="staffId" class="form-control" id="staffId"  required>
+                      <!--  <option *ngFor="let stafftimetables of stafftimetables"  name="staffId" value={{stafftimetables?.staffid}} text={{stafftimetables?.staffid}}  ></option>-->
+                      <option  name="staffId" value={{staffcheckid}} text={{staffcheckid}}>   </option>
+                        
+                </select>
+            </div>
+
+            <!-- <div class="form-group">
+                <label for="staffId">marked by</label>
+                <input type="text"   ngModel name="staffId" class="form-control" id="staffId" placeholder="staffId" required>
+             </div>-->
+
+            <div class="modal-footer">
+               <button type="button" id="add-result-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+
+
+
+    <!-- Edit Modal -->
+<div class="modal fade" id="updateResultModal" tabindex="-1" role="dialog" aria-labelledby="resultEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateResultModalLabel">Edit Result {{editResult?.name}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             
+            <form #editForm="ngForm">
+                
+                
+
+                <div class="form-group">
+                    <label for="studentId">student Id</label>
+                    <select    ngModel="{{editResult?.studentId}}" name="studentId" class="form-control" id="studentId">
+                            <option *ngFor="let grade of students"  name="studentId" value={{grade?.studentid}} text={{grade?.studentid}}  ></option>
+                            
+                    </select>
+                </div>
+
+                <input type="hidden" ngModel="{{editResult?.resultid}}" name="resultid" class="form-control" id="resultid" placeholder="resultid">
+               
+               
+
+                 <div class="form-group">
+                    <label for="classId">class</label>
+                    <select   ngModel="{{editResult?.classId}}"  name="classId" class="form-control" id="classId">
+                            <option *ngFor="let grade of grade"  name="classId" value={{grade?.classid}} text={{grade?.classid}}  ></option>
+                            
+                    </select>
+                </div>
+
+
+                 
+                <div class="form-group">
+                   <label for="medium">medium</label>
+                   <select ngModel="{{editResult?.medium}}" name="medium" class="form-control" id="medium">
+                    <option value="sinhala">sinhala</option>
+                    <option value="tamil">tamil</option>
+                    <option value="english">english</option>
+            </select>
+                </div>
+                
+                
+
+                <div class="form-group">
+                    <label for="subject">subject</label>
+                    <select ngModel="{{editResult?.subject}}"  name="subject" class="form-control" id="subject">
+                            <option *ngFor="let stafftimetables of stafftimetablesNew"  name="subject" value={{stafftimetables?.subject}} text={{stafftimetables?.subject}}  ></option>
+                            
+                    </select>
+                </div>
+
+                <div class="form-group">
+                   <label for="term">term</label>
+                   <select ngModel="{{editResult?.term}}" name="term" class="form-control" id="term">
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+            </select>
+                </div>
+                <div class="form-group">
+                   <label for="marks">marks</label>
+                   <input type="text" ngModel="{{editResult?.marks}}" name="marks" class="form-control" id="marks" placeholder="marks">
+                </div>
+                
+                
+
+
+                 <div class="form-group">
+                    <label for="staffId">Marked By</label>
+                    <select    ngModel="{{editResult?.staffId}}" name="staffId" class="form-control" id="staffId"  required>
+                            <!--<option *ngFor="let stafftimetables of stafftimetables"  name="staffId" value={{stafftimetables?.staffid}} text={{stafftimetables?.staffid}}  ></option>-->
+                            <option   name="staffId" value={{staffcheckid}} text={{staffcheckid}}  ></option> 
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button (click)="onUpdateResult(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  
+
+  <!-- Delete Modal -->
+<div class="modal fade" id="deleteResultModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete Result</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete result {{deleteResult?.resultid}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteResult(deleteResult?.resultid)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+  </div>
+  
+  
+  <!-- Notification for no Results -->
+<div *ngIf="results?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">NO Results!</h4>
+      <p>No Results were found.</p>
+    </div>
+    </div>
+
+
+         
+
+     <!--footer   
+    <footer class = "footer">
+        <div class = "container">
+            <span>All Rights Reserved 2021 </span>
+        </div>
+    </footer>              
+              -->      
+                
