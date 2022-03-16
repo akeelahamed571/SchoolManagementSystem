@@ -7,10 +7,10 @@ description:
 
 #here in this section as an admin(subject teacher) 
 
-can add new Result of a student
-can modify/update whenever it is required to change.
-can delete the result
+i.can add new Result of a student
+ii.can modify/update whenever it is required to change.
+iii.can delete the result
 
 #as a user(student)
  
-can view the results of the subjects
+i.can view the results of the subjects
